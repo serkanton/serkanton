@@ -2,11 +2,330 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serkanton</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seni Seviyorum Nur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --rose: #e8315a;
+      --rose-light: #ff6b8a;
+      --rose-dark: #b0173a;
+      --blush: #ffe0e8;
+      --cream: #fff5f7;
+      --petal: #ffd6e0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      position: relative;
+    }
+
+    /* Soft radial glow bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(232, 49, 90, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255, 107, 138, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255, 107, 138, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating petals */
+    .petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -60px;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+
+    .petal:nth-child(1)  { left: 5%;  animation-duration: 7s;  animation-delay: 0s;   font-size: 1.0rem; }
+    .petal:nth-child(2)  { left: 15%; animation-duration: 9s;  animation-delay: 1.5s; font-size: 0.8rem; }
+    .petal:nth-child(3)  { left: 25%; animation-duration: 6s;  animation-delay: 0.8s; font-size: 1.3rem; }
+    .petal:nth-child(4)  { left: 35%; animation-duration: 8s;  animation-delay: 2.2s; font-size: 0.9rem; }
+    .petal:nth-child(5)  { left: 45%; animation-duration: 7.5s;animation-delay: 0.3s; font-size: 1.1rem; }
+    .petal:nth-child(6)  { left: 55%; animation-duration: 6.5s;animation-delay: 1.8s; font-size: 0.85rem;}
+    .petal:nth-child(7)  { left: 65%; animation-duration: 9s;  animation-delay: 0.6s; font-size: 1.2rem; }
+    .petal:nth-child(8)  { left: 75%; animation-duration: 7s;  animation-delay: 2.8s; font-size: 0.95rem;}
+    .petal:nth-child(9)  { left: 85%; animation-duration: 8.5s;animation-delay: 1.1s; font-size: 1.0rem; }
+    .petal:nth-child(10) { left: 92%; animation-duration: 6s;  animation-delay: 3.2s; font-size: 0.8rem; }
+    .petal:nth-child(11) { left: 10%; animation-duration: 10s; animation-delay: 4s;   font-size: 1.1rem; }
+    .petal:nth-child(12) { left: 60%; animation-duration: 8s;  animation-delay: 5s;   font-size: 0.9rem; }
+
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0);   opacity: 0; }
+      10%  { opacity: 0.7; }
+      50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+    }
+
+    /* Center stage */
+    .scene {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    /* ---- Heart SVG ---- */
+    .heart-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Outer glow rings */
+    .heart-wrap::before,
+    .heart-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    .heart-wrap::before {
+      background: rgba(232, 49, 90, 0.15);
+      animation-delay: 0s;
+    }
+    .heart-wrap::after {
+      background: rgba(232, 49, 90, 0.08);
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: scale(0.95); opacity: 0.8; }
+      60%  { transform: scale(1.25); opacity: 0;   }
+      100% { transform: scale(1.25); opacity: 0;   }
+    }
+
+    .heart-svg {
+      width: 140px;
+      height: 140px;
+      animation: heartbeat 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 8px 24px rgba(232, 49, 90, 0.45));
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1);    }
+      14%  { transform: scale(1.12); }
+      28%  { transform: scale(1);    }
+      42%  { transform: scale(1.08); }
+      56%  { transform: scale(1);    }
+      100% { transform: scale(1);    }
+    }
+
+    /* Shimmer on the heart */
+    .heart-shimmer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      animation: shimmer-spin 3s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes shimmer-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Text */
+    .message {
+      text-align: center;
+      line-height: 1.1;
+      animation: text-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes text-rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .seni {
+      display: block;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--rose-dark);
+      letter-spacing: 0.04em;
+    }
+
+    .seviyorum {
+      display: block;
+      font-size: clamp(2.6rem, 9vw, 5rem);
+      font-weight: 700;
+      color: var(--rose);
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose-light) 60%, var(--rose-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer-text 3s ease-in-out infinite;
+      background-size: 200% auto;
+    }
+
+    @keyframes shimmer-text {
+      0%   { background-position: 0% center; }
+      50%  { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+
+    .nur {
+      display: block;
+      font-size: clamp(3.4rem, 11vw, 6.5rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--rose);
+      letter-spacing: 0.05em;
+      text-shadow:
+        0 2px 8px rgba(232, 49, 90, 0.25),
+        0 0 40px rgba(232, 49, 90, 0.15);
+      animation: nur-glow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes nur-glow {
+      from { text-shadow: 0 2px 8px rgba(232,49,90,0.2), 0 0 30px rgba(232,49,90,0.1); }
+      to   { text-shadow: 0 2px 16px rgba(232,49,90,0.45), 0 0 60px rgba(232,49,90,0.25); }
+    }
+
+    /* Decorative dots */
+    .dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      opacity: 0;
+      animation: fade-in 1s ease forwards;
+      animation-delay: 0.9s;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--rose-light);
+      animation: dot-bounce 1.6s ease-in-out infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; background: var(--rose); }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dot-bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50%       { transform: translateY(-5px); opacity: 1; }
+    }
+
+    @keyframes fade-in {
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Merhaba, ben Serkan!</h1>
-  <p>Site yapım aşamasındadır. </p>
+
+  <!-- Falling hearts -->
+  <div class="petals">
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+    <span class="petal">♥</span>
+    <span class="petal">♡</span>
+  </div>
+
+  <div class="scene">
+
+    <!-- Animated heart -->
+    <div class="heart-wrap">
+      <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hg" cx="40%" cy="35%" r="65%">
+            <stop offset="0%"   stop-color="#ff8fab"/>
+            <stop offset="50%"  stop-color="#e8315a"/>
+            <stop offset="100%" stop-color="#8b0a2e"/>
+          </radialGradient>
+          <radialGradient id="shine" cx="30%" cy="25%" r="40%">
+            <stop offset="0%"   stop-color="rgba(255,255,255,0.55)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+        </defs>
+        <!-- main heart path -->
+        <path d="M50 85
+                 C50 85 5 55 5 28
+                 C5 14 15 5 28 5
+                 C37 5 45 10 50 18
+                 C55 10 63 5 72 5
+                 C85 5 95 14 95 28
+                 C95 55 50 85 50 85Z"
+              fill="url(#hg)"/>
+        <!-- shine overlay -->
+        <path d="M50 85
+                 C50 85 5 55 5 28
+                 C5 14 15 5 28 5
+                 C37 5 45 10 50 18
+                 C55 10 63 5 72 5
+                 C85 5 95 14 95 28
+                 C95 55 50 85 50 85Z"
+              fill="url(#shine)"/>
+        <!-- small highlight -->
+        <ellipse cx="32" cy="22" rx="9" ry="6" fill="rgba(255,255,255,0.28)" transform="rotate(-20,32,22)"/>
+      </svg>
+    </div>
+
+    <!-- Message -->
+    <div class="message">
+      <span class="seni">Seni</span>
+      <span class="seviyorum">Seviyorum</span>
+      <span class="nur">Nur</span>
+    </div>
+
+    <!-- Decorative dots -->
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+  </div>
+
 </body>
 </html>
