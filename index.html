@@ -127,4 +127,96 @@
 
     @keyframes pulse-ring {
       0%   { transform: scale(0.95); opacity: 0.8; }
-      60%  { transform: scale(1.25); opacity:
+      60%  { transform: scale(1.25); opacity: 0;   }
+      100% { transform: scale(1.25); opacity: 0;   }
+    }
+
+    .heart-svg {
+      width: 140px;
+      height: 140px;
+      animation: heartbeat 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 8px 24px rgba(232, 49, 90, 0.45));
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1);    }
+      14%  { transform: scale(1.12); }
+      28%  { transform: scale(1);    }
+      42%  { transform: scale(1.08); }
+      56%  { transform: scale(1);    }
+      100% { transform: scale(1);    }
+    }
+
+    /* Text */
+    .message {
+      text-align: center;
+      line-height: 1.1;
+      animation: text-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes text-rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .seni {
+      display: block;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--rose-dark);
+      letter-spacing: 0.04em;
+    }
+
+    .seviyorum {
+      display: block;
+      font-size: clamp(2.6rem, 9vw, 5rem);
+      font-weight: 700;
+      color: var(--rose);
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose-light) 60%, var(--rose-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer-text 3s ease-in-out infinite;
+      background-size: 200% auto;
+    }
+
+    @keyframes shimmer-text {
+      0%   { background-position: 0% center; }
+      50%  { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+
+    .dincer {
+      display: block;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--rose);
+      letter-spacing: 0.05em;
+      text-shadow:
+        0 2px 8px rgba(232, 49, 90, 0.25),
+        0 0 40px rgba(232, 49, 90, 0.15);
+      animation: dincer-glow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes dincer-glow {
+      from { text-shadow: 0 2px 8px rgba(232,49,90,0.2), 0 0 30px rgba(232,49,90,0.1); }
+      to   { text-shadow: 0 2px 16px rgba(232,49,90,0.45), 0 0 60px rgba(232,49,90,0.25); }
+    }
+
+    /* Decorative dots */
+    .dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      opacity: 0;
+      animation: fade-in 1s ease forwards;
+      animation-delay: 0.9s;
+    }
+
+    .dot
