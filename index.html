@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seni Seviyorum Nur</title>
+  <title>Seni Seviyorum Dinçer</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
@@ -107,7 +107,6 @@
       justify-content: center;
     }
 
-    /* Outer glow rings */
     .heart-wrap::before,
     .heart-wrap::after {
       content: '';
@@ -147,21 +146,6 @@
       42%  { transform: scale(1.08); }
       56%  { transform: scale(1);    }
       100% { transform: scale(1);    }
-    }
-
-    /* Shimmer on the heart */
-    .heart-shimmer {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      animation: shimmer-spin 3s linear infinite;
-      opacity: 0.5;
-    }
-
-    @keyframes shimmer-spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
     }
 
     /* Text */
@@ -206,7 +190,7 @@
       100% { background-position: 0% center; }
     }
 
-    .nur {
+    .dincer {
       display: block;
       font-size: clamp(3.4rem, 11vw, 6.5rem);
       font-weight: 700;
@@ -216,10 +200,10 @@
       text-shadow:
         0 2px 8px rgba(232, 49, 90, 0.25),
         0 0 40px rgba(232, 49, 90, 0.15);
-      animation: nur-glow 2.4s ease-in-out infinite alternate;
+      animation: dincer-glow 2.4s ease-in-out infinite alternate;
     }
 
-    @keyframes nur-glow {
+    @keyframes dincer-glow {
       from { text-shadow: 0 2px 8px rgba(232,49,90,0.2), 0 0 30px rgba(232,49,90,0.1); }
       to   { text-shadow: 0 2px 16px rgba(232,49,90,0.45), 0 0 60px rgba(232,49,90,0.25); }
     }
@@ -252,11 +236,57 @@
     @keyframes fade-in {
       to { opacity: 1; }
     }
+
+    /* Typewriter Signature Styles */
+    .signature-container {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      text-align: right;
+      color: var(--rose-dark);
+      font-family: 'Playfair Display', serif;
+      z-index: 10;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--rose); /* İmleç efekti */
+      margin-left: auto;
+      opacity: 0;
+    }
+
+    .type-line1 {
+      font-size: 1.2rem;
+      font-style: italic;
+      animation: 
+        typing 2s steps(15) forwards,
+        blink 0.75s step-end infinite;
+      animation-delay: 2s;
+    }
+
+    .type-line2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      animation: 
+        typing 1.5s steps(10) forwards,
+        blink 0.75s step-end infinite;
+      animation-delay: 4s; /* İlk satır bitince başlar */
+    }
+
+    @keyframes typing {
+      from { width: 0; opacity: 1; }
+      to { width: 100%; opacity: 1; border-right-color: transparent; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--rose); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Falling hearts -->
   <div class="petals">
     <span class="petal">♥</span>
     <span class="petal">♡</span>
@@ -273,8 +303,6 @@
   </div>
 
   <div class="scene">
-
-    <!-- Animated heart -->
     <div class="heart-wrap">
       <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -288,43 +316,28 @@
             <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
           </radialGradient>
         </defs>
-        <!-- main heart path -->
-        <path d="M50 85
-                 C50 85 5 55 5 28
-                 C5 14 15 5 28 5
-                 C37 5 45 10 50 18
-                 C55 10 63 5 72 5
-                 C85 5 95 14 95 28
-                 C95 55 50 85 50 85Z"
-              fill="url(#hg)"/>
-        <!-- shine overlay -->
-        <path d="M50 85
-                 C50 85 5 55 5 28
-                 C5 14 15 5 28 5
-                 C37 5 45 10 50 18
-                 C55 10 63 5 72 5
-                 C85 5 95 14 95 28
-                 C95 55 50 85 50 85Z"
-              fill="url(#shine)"/>
-        <!-- small highlight -->
+        <path d="M50 85 C50 85 5 55 5 28 C5 14 15 5 28 5 C37 5 45 10 50 18 C55 10 63 5 72 5 C85 5 95 14 95 28 C95 55 50 85 50 85Z" fill="url(#hg)"/>
+        <path d="M50 85 C50 85 5 55 5 28 C5 14 15 5 28 5 C37 5 45 10 50 18 C55 10 63 5 72 5 C85 5 95 14 95 28 C95 55 50 85 50 85Z" fill="url(#shine)"/>
         <ellipse cx="32" cy="22" rx="9" ry="6" fill="rgba(255,255,255,0.28)" transform="rotate(-20,32,22)"/>
       </svg>
     </div>
 
-    <!-- Message -->
     <div class="message">
       <span class="seni">Seni</span>
       <span class="seviyorum">Seviyorum</span>
-      <span class="nur">Nur</span>
+      <span class="dincer">Dinçer</span>
     </div>
 
-    <!-- Decorative dots -->
     <div class="dots">
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
+  </div>
 
+  <div class="signature-container">
+    <div class="typewriter type-line1">Aşk ile...</div>
+    <div class="typewriter type-line2">-Serkan</div>
   </div>
 
 </body>
